@@ -80,6 +80,7 @@
 				8C25174421D59CD100CD5110 /* Main.storyboard */,
 				8C25174721D59CD200CD5110 /* Assets.xcassets */,
 				8C25174921D59CD200CD5110 /* LaunchScreen.storyboard */,
+				8C25174C21D59CD200CD5110 /* Info.plist */,
 			);
 			path = FlashApp;
 			sourceTree = "<group>";
@@ -115,7 +116,6 @@
 		8C25175621D59D0D00CD5110 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8C25174C21D59CD200CD5110 /* Info.plist */,
 				8C25175821D684B300CD5110 /* GoogleService-Info.plist */,
 			);
 			path = "Supporting Files";
