@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class ChatViewController: UIViewController {
 
+    //MARK:- Outlets
+    
+    //MARK:- Properties
+    
+    //MARK:- Load up functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,14 +23,19 @@ class ChatViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK:- Buttons
+    @IBAction func logOutWhenPressed(_ sender: UIBarButtonItem) {
+        
+        do {
+            try Auth.auth().signOut()   //Function coming from the FireBase api
+            navigationController?.popToRootViewController(animated: true) //Based on the fact that will take us to the initial VC embedded on the NavController
+        }
+        catch {
+            print("Problems signing out")
+        }
+        
     }
-    */
+    
+    //MARK:- Custom Functions
 
 }

@@ -68,7 +68,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="a3a-iU-nnh"/>
                     </navigationItem>
                     <connections>
-                        <segue destination="hQd-D6-uzY" kind="showDetail" id="LXq-pw-BOg"/>
+                        <segue destination="hQd-D6-uzY" kind="showDetail" identifier="goToChat" id="LXq-pw-BOg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6r-hc-piM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -150,7 +150,11 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Chat" id="kz9-xd-wcz">
-                                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="qhe-4I-Qfg"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="qhe-4I-Qfg">
+                                            <connections>
+                                                <action selector="logOutWhenPressed:" destination="hQd-D6-uzY" id="Okd-Qq-MD5"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -206,6 +210,9 @@
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="logInWhenPressed:" destination="Tq7-Q3-J6R" eventType="touchUpInside" id="byV-ks-evu"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gn7-BL-snx">
                                 <rect key="frame" x="16" y="215" width="382" height="30"/>
@@ -232,7 +239,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="WDq-zv-0b4"/>
                     <connections>
-                        <segue destination="hQd-D6-uzY" kind="showDetail" id="bp5-9b-tjU"/>
+                        <outlet property="emailTextField" destination="HFB-pX-Wl7" id="Z2z-HW-2AD"/>
+                        <outlet property="passwordTextField" destination="Gn7-BL-snx" id="Bak-lv-h3p"/>
+                        <segue destination="hQd-D6-uzY" kind="showDetail" identifier="goToChat" id="bp5-9b-tjU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qEf-H9-eFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

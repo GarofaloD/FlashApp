@@ -44,7 +44,7 @@ class RegisterViewController: UIViewController {
             
             if error == nil {
                 print("Registration Successful!")
-                self.performSegue(withIdentifier: "goToChat", sender: nil)
+                self.performSegue(withIdentifier: GO_TO_CHAT, sender: nil)
             } else {
                 print(error as Any)
             }
