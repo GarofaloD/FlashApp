@@ -136,11 +136,11 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="724"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cgq-iW-I1i">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="customMessageCell" rowHeight="93" id="cgq-iW-I1i">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cgq-iW-I1i" id="n6O-kd-dSf">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="92.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -175,6 +175,11 @@
                         <viewLayoutGuide key="safeArea" id="jLZ-fj-Iy6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Chat" id="qhI-jG-FeD"/>
+                    <connections>
+                        <outlet property="messageTableView" destination="pLV-wz-Azv" id="t5D-Om-HD7"/>
+                        <outlet property="messageTextField" destination="2sQ-oT-gPq" id="lIA-Ee-Sup"/>
+                        <outlet property="sendButton" destination="PxE-3d-0VS" id="7Jc-Ru-k6J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4c-nu-6l7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

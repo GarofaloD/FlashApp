@@ -9,9 +9,17 @@
 import UIKit
 import Firebase
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    
 
     //MARK:- Outlets
+    
+    @IBOutlet weak var messageTableView: UITableView!
+    @IBOutlet weak var messageTextField: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
+    
+    
     
     //MARK:- Properties
     
@@ -19,7 +27,16 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //TableView delegates
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
+        
+        //XIB registration, with registration of the cell and creation of the UNib file
+        messageTableView.register(UINib(nibName: "CustomMessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
+        
+        //Call the resizing of the cell
+        configureTableView()
+        
     }
     
 
@@ -36,6 +53,27 @@ class ChatViewController: UIViewController {
         
     }
     
-    //MARK:- Custom Functions
+    //MARK:- TableView Functions
+    //Number of Rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    //Content of Rows
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell //the one created with the XIB file
+        let messageArray = ["First Message", "Second Message", "Third Message"]
+        cell.messageBody.text = messageArray[indexPath.row] //senderUsername is a property from the custom cell
+        return cell
+    }
 
+    //Adapt height of the cell
+    func configureTableView() {
+        messageTableView.rowHeight = UITableView.automaticDimension
+        messageTableView.estimatedRowHeight = 500.0
+        messageTableView.reloadData()
+    }
+    
+    
+    
 }
