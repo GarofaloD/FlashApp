@@ -62,18 +62,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     //Content of Rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell //the one created with the XIB file
-        let messageArray = ["First Message", "Second Message", "Third Message"]
+        let messageArray = ["First Message", "Secohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhnd Message", "Third Message"]
         cell.messageBody.text = messageArray[indexPath.row] //senderUsername is a property from the custom cell
         return cell
     }
+    
 
     //Adapt height of the cell
     func configureTableView() {
         messageTableView.rowHeight = UITableView.automaticDimension
-        messageTableView.estimatedRowHeight = 500.0
-        messageTableView.reloadData()
+        messageTableView.estimatedRowHeight = 500
     }
-    
+
     
     
 }
