@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        //Database test lines
 //        let myDatabase = Database.database().reference()
 //        myDatabase.setValue("We've got data")
         

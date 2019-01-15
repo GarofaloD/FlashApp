@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
 
@@ -29,6 +30,8 @@ class LoginViewController: UIViewController {
     //MARK:- Buttons
     @IBAction func logInWhenPressed(_ sender: UIButton) {
         
+        SVProgressHUD.show()
+        
         guard let typedEmail = emailTextField.text else { return }
         guard let typedPassword = passwordTextField.text else { return }
         
@@ -36,13 +39,12 @@ class LoginViewController: UIViewController {
             
             if error == nil {
                 print("Login successful")
+                SVProgressHUD.dismiss()
                 self.performSegue(withIdentifier: GO_TO_CHAT, sender: nil)
             } else {
+                SVProgressHUD.dismiss()
                 debugPrint(error as Any)
             }
-            
-            
-            
         }
     }
     

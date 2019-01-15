@@ -11,8 +11,8 @@ import Foundation
 class Message {
     
     //MARK:- Properties
-    private(set) public var messageSender : String = ""
-    private(set) public var messageBody : String = ""
+     var messageSender : String = ""
+     var messageBody : String = ""
     
     
     

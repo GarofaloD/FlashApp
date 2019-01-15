@@ -8,9 +8,13 @@
 
 import UIKit
 import Firebase
+import ChameleonFramework
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    //MARK:- Properties
+    var messageArray = [Message]()
+    
 
     //MARK:- Outlets
     @IBOutlet weak var heightConstraint : NSLayoutConstraint!
@@ -39,14 +43,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Tap gesture to hide the keyboard. This one needs to be registered manually
         hidingKeyboard()
 
+        //retrieving messages from the Firebase DB
+        retrieveMessages()
+        
     }
     
 
     //MARK:- Buttons
+    //Logout from the app
     @IBAction func logOutWhenPressed(_ sender: UIBarButtonItem) {
-        
         do {
-            try Auth.auth().signOut()   //Function coming from the FireBase api
+            try Auth.auth().signOut()   //Function coming from the FireBase api for authentication
             navigationController?.popToRootViewController(animated: true) //Based on the fact that will take us to the initial VC embedded on the NavController
         }
         catch {
@@ -54,13 +61,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
+    //Sending messages.
     @IBAction func sendMessagesWhenPressed(_ sender: UIButton) {
         
+        //Clearing and disabling buttons and fields
         messageTextField.endEditing(true)
         messageTextField.isEnabled = false
         sendButton.isEnabled = false
         
+        //Cration of Messagaes DB on firebase with the mdictionary model for each message assigned to each different user
         let messagesDB = Database.database().reference().child("Messages")
         let messageDictionary = ["Sender" : Auth.auth().currentUser?.email, "MessageBody": messageTextField.text!]
         
@@ -78,22 +87,64 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error as Any)
             }
         }
+    }
+    
+    //Retrieve messages from FirebaseDB
+    func retrieveMessages() {
         
+        messageTableView.separatorStyle = .none
+        
+        //New GET call to our DB to get the messages and check if there are new thing on a new snapsshot element
+        let messageDB = Database.database().reference().child("Messages")
+        messageDB.observe(.childAdded) { (snapshot) in
+            
+            //Format new elements into dictionary elements (with separate entities)
+            let snapshotValue = snapshot.value as! Dictionary<String,String>
+            let text = snapshotValue["MessageBody"]!
+            let sender = snapshotValue["Sender"]!
+
+            //Saving each entity into a new Message object
+            let message = Message()
+            message.messageBody = text
+            message.messageSender = sender
+            
+            //Saving the new objects into the objects array (declared up top)
+            self.messageArray.append(message)
+            
+            //Reformating the table to get the messages and expand or contract the cells
+            self.configureTableView()
+            self.messageTableView.reloadData()
+            
+        }
         
     }
+    
     
     
     //MARK:- TableView Functions
     //Number of Rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return messageArray.count
     }
     
     //Content of Rows
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell //the one created with the XIB file
-        let messageArray = ["First Message", "Secohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhnd Message", "Third Message"]
-        cell.messageBody.text = messageArray[indexPath.row] //senderUsername is a property from the custom cell
+
+        //For the cell assigning different elements from the objects in the array
+        cell.messageBody.text = messageArray[indexPath.row].messageBody
+        cell.senderUserName.text = messageArray[indexPath.row].messageSender
+        cell.avatarImageView.image = UIImage(named: "egg")
+        
+        
+        if cell.senderUserName.text == Auth.auth().currentUser?.email {
+            cell.avatarImageView.backgroundColor = UIColor.flatMint()
+            cell.messageBackground.backgroundColor = UIColor.flatSkyBlue()
+        } else {
+            cell.avatarImageView.backgroundColor = UIColor.flatWatermelon()
+            cell.messageBackground.backgroundColor = UIColor.flatGray()
+        }
+        
         return cell
     }
     
